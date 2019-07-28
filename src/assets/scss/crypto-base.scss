@@ -1,0 +1,8 @@
+@mixin block_base($width: 540px) {
+    padding: 24px 36px;
+    box-sizing: border-box;
+    font-family: "Open Sans", sans-serif;
+    border-radius: 8px;
+    width: $width;
+    font-size: 16px;
+}
