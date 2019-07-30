@@ -18,7 +18,8 @@ export default {
 <style lang="scss" scoped>
 .crypto-button {
   cursor: pointer;
-  width: 350px;
+  margin: auto;
+  max-width: 350px;
   height: 70px;
   box-shadow: 0 4px 8px rgba(98, 0, 255, 0.2);
   border-radius: 100px;
@@ -28,8 +29,8 @@ export default {
     rgba(98, 0, 255, 1),
     rgba(49, 0, 128, 1)
   );
-  font-size: 15px;
-  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  font-family: "Open Sans", sans-serif;
   text-transform: uppercase;
   font-weight: bold;
   line-height: 70px;
@@ -37,7 +38,7 @@ export default {
     max-width: 100%;
   }
   &-text {
-    padding: 0 .5em;
+    padding: 0 0.5em;
   }
   &-text,
   svg {

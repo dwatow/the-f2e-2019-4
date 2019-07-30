@@ -1,12 +1,11 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/crypto-button">crypto button</router-link> |
-      <router-link to="/crypto-login">crypto login</router-link> |
+      <router-link to="/crypto-pay">crypto pay</router-link> |
+      <router-link to="/edit/crypto-login">crypto login</router-link> |
       <router-link to="/edit/crypto-checkout">crypto checkout</router-link> |
       <router-link to="/edit/crypto-shipping">crypto shipping</router-link> |
       <router-link to="/edit/crypto-payment">crypto payment</router-link> |
-      <router-link to="/crypto-detail">crypto detail</router-link> |
       <router-link to="/crypto-result">crypto result</router-link>
     </div>
     <router-view />

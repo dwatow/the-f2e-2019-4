@@ -1,0 +1,7 @@
+$width-large: 576px;
+
+@mixin mediaquery_large {
+    @media all and (min-width: $width-large) {
+        @content;
+    }
+}

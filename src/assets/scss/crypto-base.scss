@@ -1,8 +1,15 @@
+@import "@/assets/scss/mediaquery.scss";
+
 @mixin block_base($width: 540px) {
-    padding: 24px 36px;
+    padding: 12px 18px;    
+    @include mediaquery_large {
+        padding: 24px 36px;
+    }
+
     box-sizing: border-box;
     font-family: "Open Sans", sans-serif;
     border-radius: 8px;
-    width: $width;
+    max-width: $width;
     font-size: 16px;
+    // margin: auto;
 }

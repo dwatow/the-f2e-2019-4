@@ -1,25 +1,40 @@
 <template>
   <div class="crypto-detail">
-    <h2 class="title">detail 
-      <label class="right-item"><select v-model="currency_type">
-        <option value ="ETH">ETH</option>
-        <option value ="BTC">BTC</option>
-      </select>
-      <i class="material-icons">unfold_more</i></label></h2>
+    <h2 class="title">
+      detail
+      <label class="right-item"
+        ><select v-model="currency_type">
+          <option value="ETH">ETH</option>
+          <option value="BTC">BTC</option>
+        </select>
+        <i class="material-icons">unfold_more</i></label
+      >
+    </h2>
     <section class="store">
       <h3>store</h3>
-      <p>{{store_name}}</p>
+      <p>{{ store_name }}</p>
     </section>
     <section class="list">
       <h3>list</h3>
-      <p :key="one.id" v-for="one in productions">{{one.name}} ({{one.quantity}}) <span class="right-item">{{one.price * one.quantity}} {{currency_type}}</span> </p>
+      <p :key="one.id" v-for="one in productions">
+        {{ one.name }} ({{ one.quantity }})
+        <span class="right-item"
+          >{{ one.price * one.quantity }} {{ currency_type }}</span
+        >
+      </p>
     </section>
     <section class="summary">
-      <p>amount<span class="right-item">{{amount}} {{currency_type}}</span></p>
-      <p>gas fee<span class="right-item">{{gas_fee}} {{currency_type}}</span></p>
+      <p>
+        amount<span class="right-item">{{ amount }} {{ currency_type }}</span>
+      </p>
+      <p>
+        gas fee<span class="right-item">{{ gas_fee }} {{ currency_type }}</span>
+      </p>
     </section>
     <section class="total">
-      <h3>total<span class="right-item">{{total}} {{currency_type}}</span></h3>
+      <h3>
+        total<span class="right-item">{{ total }} {{ currency_type }}</span>
+      </h3>
     </section>
   </div>
 </template>
@@ -31,37 +46,43 @@ export default {
       store_name: "Store Name Inc.",
       currency_type: "ETH",
       gas_fee: 0.00021,
-      productions: [{
-        id: 0,
-        name: 'First Product',
-        quantity: 3,
-        price: 0.134
-      }, {
-        id: 1,
-        name: 'Second Product',
-        quantity: 1,
-        price: 0.033
-      }]
-    }
+      productions: [
+        {
+          id: 0,
+          name: "First Product",
+          quantity: 3,
+          price: 0.134
+        },
+        {
+          id: 1,
+          name: "Second Product",
+          quantity: 1,
+          price: 0.033
+        }
+      ]
+    };
   },
   computed: {
-    amount () {
-      return this.productions.reduce((result, item, index) => {
-        result += item.price * item.quantity
-        return result
-      }, 0).toFixed(3)
+    amount() {
+      return this.productions
+        .reduce((result, item) => {
+          result += item.price * item.quantity;
+          return result;
+        }, 0)
+        .toFixed(3);
     },
-    total () {
-      return Number(this.amount) + Number(this.gas_fee)
+    total() {
+      return Number(this.amount) + Number(this.gas_fee);
     }
   }
 };
 </script>
 
 <style lang="scss">
-@import '@/assets/scss/crypto-base.scss';
+@import "@/assets/scss/crypto-base.scss";
 .crypto-detail {
   @include block_base(350px);
+  max-width: 350px;
   border: 1px solid rgba(0, 0, 0, 1);
   text-align: left;
 }
@@ -71,7 +92,7 @@ export default {
 .title {
   position: relative;
   margin-top: 0;
-  margin-bottom: 16px;
+  margin-bottom: 1em;
   text-transform: uppercase;
   font-weight: bold;
 }
@@ -121,16 +142,15 @@ section {
     position: relative;
   }
   p {
-    font-size: .8em;
+    font-size: 0.8em;
     margin: 4px 0;
     position: relative;
+    text-transform: capitalize;
   }
 }
 .store {
   margin-bottom: 24px;
 }
-
-
 
 .summary {
   text-transform: uppercase;
@@ -141,12 +161,11 @@ section {
   }
 }
 
-.list, .summary {
-  // text-transform: uppercase;
-  // font-weight: bold;
+.list,
+.summary {
   & + section {
     &::before {
-      content: '';
+      content: "";
       display: block;
       box-sizing: border-box;
       width: 100%;
@@ -161,5 +180,4 @@ section {
     }
   }
 }
-
 </style>

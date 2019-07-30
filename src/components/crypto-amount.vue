@@ -1,9 +1,10 @@
 <template>
   <div class="crypto-title">
-    <crypto-pay-logo fill="#6200FF" width="184" height="46"></crypto-pay-logo>
+    <crypto-pay-logo fill="#6200FF"></crypto-pay-logo>
     <div class="crypto-amount">
-      <i class="material-icons">shopping_cart</i> <span class="amount_eth">{{amount.eth}} ETH</span><br />
-      <span class="amount_usd">$ {{amount.usd}} USD</span> 
+      <i class="material-icons">shopping_cart</i>
+      <span class="amount_eth">{{ amount.eth }} ETH</span><br />
+      <span class="amount_usd">$ {{ amount.usd }} USD</span>
     </div>
   </div>
 </template>
@@ -12,13 +13,12 @@
 import cryptoPayLogo from "@/assets/img/logo-crypto-pay.svg";
 export default {
   components: {
-    cryptoPayLogo,
-
+    cryptoPayLogo
   },
   props: {
     amount: Object
   }
-}
+};
 </script>
 
 <style lang="scss">
@@ -28,29 +28,33 @@ export default {
   width: 100%;
   padding-bottom: 24px;
   margin-bottom: 24px;
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
 }
 </style>
 
 <style lang="scss" scoped>
+@import "@/assets/scss/mediaquery.scss";
 .crypto-title {
   position: relative;
   &::before {
-    content: '';
+    content: "";
+    position: absolute;
+    top: 100%;
     display: block;
     width: 100%;
     height: 1px;
     background-color: rgba(244, 244, 244, 1);
-    position: absolute;
-    top: 100%;
   }
   &::after {
-    content: '';
+    content: "";
     display: block;
     clear: right;
   }
   svg {
-    transform: scale(1.19);  // 184/151.18
+    @include mediaquery_large {
+      transform: scale(1.2); // 184/151.18
+    }
+    transform: scale(1); // 184/151.18
     transform-origin: 0 0;
   }
 }
@@ -59,7 +63,8 @@ export default {
   text-align: right;
   text-transform: uppercase;
   font-size: 20px;
-  .material-icons, .amount_eth {
+  .material-icons,
+  .amount_eth {
     vertical-align: bottom;
   }
   .material-icons {

@@ -3,30 +3,30 @@
     <crypto-pay-logo fill="#6200FF"></crypto-pay-logo>
     <div class="icon"><i class="material-icons">check_circle</i></div>
     <h2 class="title">Thanks for your purchase!</h2>
-    <p class="text">Your order number is: <span id="order_index">CP190719</span><br />
-    We’ll email you an confirmation with detail and tracking info</p>
-    <crypto-submit>continue shopping</crypto-submit>
+    <p class="text">
+      Your order number is: <span id="order_serial">CP190719</span><br />
+      We’ll email you an confirmation with detail and tracking info
+    </p>
+    <crypto-button type="submit">continue shopping</crypto-button>
   </crypto-dialog>
 </template>
 
 <script>
 import cryptoPayLogo from "@/assets/img/logo-crypto-pay.svg";
-import cryptoSubmit from "@/components/crypto-submit.vue";
+import cryptoButton from "@/components/crypto-button.vue";
 import cryptoDialog from "@/components/crypto-dialog.vue";
 
 export default {
   components: {
     cryptoPayLogo,
-    cryptoSubmit,
+    cryptoButton,
     cryptoDialog
   }
 };
 </script>
 
-
 <style lang="scss">
 @import "@/assets/scss/crypto-base.scss";
-
 .crypto-result {
   @include block_base;
   text-align: center;
@@ -57,13 +57,12 @@ svg {
 }
 .text {
   font-size: 1em;
-  margin: 24px 0;
+  margin: 1.5em 0;
   line-height: 1.6em;
 }
 
-#order_index {
-  color: #6200FF;
+#order_serial {
+  color: #6200ff;
   font-weight: bold;
 }
 </style>
-
