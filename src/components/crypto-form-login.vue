@@ -14,7 +14,7 @@
       </p>
     </section>
     <p class="form-control">
-      <crypto-button type="submit">login</crypto-button>
+      <crypto-button type="submit" @click="clickSubmit">login</crypto-button>
       <span class="forgot">forgot your password?</span>
     </p>
   </form>
@@ -26,6 +26,11 @@ import cryptoButton from "@/components/crypto-button.vue";
 export default {
   components: {
     cryptoButton
+  },
+  methods: {
+    clickSubmit() {
+      this.$router.push({ name: "crypto-checkout" });
+    }
   }
 };
 </script>
@@ -36,7 +41,6 @@ export default {
   text-transform: uppercase;
   font-weight: bold;
   font-size: 20px;
-  clear: right;
 }
 
 section {

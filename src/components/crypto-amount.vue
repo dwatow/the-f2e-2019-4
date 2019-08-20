@@ -3,20 +3,26 @@
     <crypto-pay-logo fill="#6200FF"></crypto-pay-logo>
     <div class="crypto-amount">
       <i class="material-icons">shopping_cart</i>
-      <span class="amount_eth">{{ amount.eth }} ETH</span><br />
-      <span class="amount_usd">$ {{ amount.usd }} USD</span>
+      <span class="amount_eth">{{ eth }} ETH</span><br />
+      <span class="amount_usd">$ {{ usd }} USD</span>
     </div>
   </div>
 </template>
 
 <script>
 import cryptoPayLogo from "@/assets/img/logo-crypto-pay.svg";
+
 export default {
   components: {
     cryptoPayLogo
   },
   props: {
-    amount: Object
+    eth: Number
+  },
+  computed: {
+    usd() {
+      return (this.eth * 224.99483008202938).toFixed(2);
+    }
   }
 };
 </script>
@@ -25,7 +31,6 @@ export default {
 .crypto-title {
   text-align: left;
   font-size: 20px;
-  width: 100%;
   padding-bottom: 24px;
   margin-bottom: 24px;
   font-family: "Open Sans", sans-serif;
@@ -45,11 +50,6 @@ export default {
     height: 1px;
     background-color: rgba(244, 244, 244, 1);
   }
-  &::after {
-    content: "";
-    display: block;
-    clear: right;
-  }
   svg {
     @include mediaquery_large {
       transform: scale(1.2); // 184/151.18
@@ -58,8 +58,18 @@ export default {
     transform-origin: 0 0;
   }
 }
+.crypto-title {
+  .crypto-amount {
+    float: right;
+  }
+  &::after {
+    content: "";
+    display: block;
+    clear: right;
+  }
+}
+
 .crypto-amount {
-  float: right;
   text-align: right;
   text-transform: uppercase;
   font-size: 20px;

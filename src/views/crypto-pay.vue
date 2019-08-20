@@ -1,6 +1,6 @@
 <template>
-  <div class="crypto-button">
-    <span class="crypto-button-text">check out with</span>
+  <div class="crypto-pay" @click="onClick">
+    <span class="crypto-pay-text">check out with</span>
     <crypto-pay-logo fill="#fff"></crypto-pay-logo>
   </div>
 </template>
@@ -11,12 +11,17 @@ import cryptoPayLogo from "@/assets/img/logo-crypto-pay.svg";
 export default {
   components: {
     cryptoPayLogo
+  },
+  methods: {
+    onClick() {
+      this.$router.push({ name: "crypto-login" });
+    }
   }
 };
 </script>
 
 <style lang="scss" scoped>
-.crypto-button {
+.crypto-pay {
   cursor: pointer;
   margin: auto;
   max-width: 350px;
@@ -33,7 +38,7 @@ export default {
   font-family: "Open Sans", sans-serif;
   text-transform: uppercase;
   font-weight: bold;
-  line-height: 70px;
+  line-height: (70px/14px);
   svg {
     max-width: 100%;
   }

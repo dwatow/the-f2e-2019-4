@@ -4,7 +4,6 @@
   </div>
 </template>
 
-
 <style lang="scss">
 .buttons-group {
   text-transform: capitalize;

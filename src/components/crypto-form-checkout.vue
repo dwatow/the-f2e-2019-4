@@ -3,26 +3,26 @@
     <section class="ship-to">
       <h2>
         ship to
-        <span class="edit">edit</span>
+        <span class="edit" @click="editShip">edit</span>
       </h2>
       <div class="content">
-        <div class="title">john Doe</div>
-        <div class="text">132, My Street, Kingston, New York 12401 United States</div>
+        <div class="content-title">{{ buyer.name }}</div>
+        <div class="content-text">{{ buyerAddr }}</div>
       </div>
     </section>
     <section class="payment">
       <h2>
         payment
-        <span class="edit">edit</span>
+        <span class="edit" @click="editPayment">edit</span>
       </h2>
       <h3>asset</h3>
-      <buttons-group class="pay_way">
-        <div>
+      <buttons-group class="pay-way">
+        <div :class="{ pay_way_actived: payment.currency === 'ETH' }">
           <iconETH class="iconETH"></iconETH>
           <span class="name">Ethereum</span>
           <span>(ETH)</span>
         </div>
-        <div>
+        <div :class="{ pay_way_actived: payment.currency === 'BTC' }">
           <iconBTC></iconBTC>
           <span class="name">Bitcoin</span>
           <span>(BTC)</span>
@@ -30,13 +30,13 @@
       </buttons-group>
       <h3>account</h3>
       <div class="content">
-        <div class="title">general account</div>
-        <div class="text">Balance 2.593 ETH</div>
-        <div class="amount">-{{ amount.eth }} ETH</div>
+        <div class="content-title">general account</div>
+        <div class="content-text">Balance 2.593 {{ payment.currency }}</div>
+        <div class="content-amount">-{{ amount }} {{ payment.currency }}</div>
       </div>
     </section>
     <slot></slot>
-    <crypto-button type="submit">checkout now</crypto-button>
+    <crypto-button type="submit" @click="clickSubmit">checkout now</crypto-button>
   </div>
 </template>
 
@@ -53,13 +53,29 @@ export default {
     cryptoButton,
     buttonsGroup
   },
-  data() {
-    return {
-      amount: {
-        eth: 123,
-        usd: 456
-      }
-    };
+  props: {
+    amount: Number,
+    buyer: Object,
+    payment: Object
+  },
+  computed: {
+    buyerAddr() {
+      return `${this.buyer.addr}, ${this.buyer.city} ${this.buyer.zip} ${
+        this.buyer.country
+      }`;
+    }
+  },
+  methods: {
+    editShip() {
+      this.$router.push({ name: "crypto-buyer" });
+    },
+    editPayment() {
+      this.$router.push({ name: "crypto-payment" });
+    },
+    clickSubmit() {
+      this.$store.dispatch("checkout");
+      this.$router.push({ name: "crypto-result" });
+    }
   }
 };
 </script>
@@ -79,7 +95,7 @@ section {
       position: absolute;
       bottom: 0;
       right: 0;
-      font-size: 0.6em;
+      font-size: 16px;
       text-transform: uppercase;
       color: rgba(98, 0, 255, 1);
     }
@@ -91,7 +107,7 @@ section {
     font-size: 20px;
   }
 
-  .pay_way {
+  .pay-way {
     text-transform: capitalize;
     text-align: center;
     div {
@@ -111,11 +127,9 @@ section {
     span {
       vertical-align: middle;
     }
-    div {
-      &:hover {
-        border: solid 1px white;
-        filter: invert(1);
-      }
+    &_actived {
+      border: solid 1px white;
+      filter: invert(1);
     }
   }
   .iconETH {
@@ -132,16 +146,16 @@ section {
     border-radius: 4px;
     padding: 15px 20px;
     box-sizing: border-box;
-    .title {
-      padding-right: 3.6em;
+    &-title {
       font-weight: bold;
       font-size: 1em;
       color: black;
+      padding-right: 3.6em;
       @include mediaquery_large {
         padding-right: 0;
       }
     }
-    .text {
+    &-text {
       font-size: 0.8em;
       color: rgba(0, 0, 0, 0.6);
       padding-right: 3.6em;
@@ -149,7 +163,7 @@ section {
         padding-right: 0;
       }
     }
-    .amount {
+    &-amount {
       position: absolute;
       right: 20px;
       top: 0;

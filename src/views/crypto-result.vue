@@ -7,7 +7,9 @@
       Your order number is: <span id="order_serial">CP190719</span><br />
       We’ll email you an confirmation with detail and tracking info
     </p>
-    <crypto-button type="submit">continue shopping</crypto-button>
+    <crypto-button type="submit" @click="onClick"
+      >continue shopping</crypto-button
+    >
   </crypto-dialog>
 </template>
 
@@ -21,6 +23,11 @@ export default {
     cryptoPayLogo,
     cryptoButton,
     cryptoDialog
+  },
+  methods: {
+    onClick() {
+      this.$router.push({ name: "crypto-pay" });
+    }
   }
 };
 </script>
@@ -58,7 +65,7 @@ svg {
 .text {
   font-size: 1em;
   margin: 1.5em 0;
-  line-height: 1.6em;
+  line-height: ((22px + 2px)/16px); //字高 + 間距
 }
 
 #order_serial {

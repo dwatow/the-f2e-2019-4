@@ -1,5 +1,9 @@
 <template>
-  <button class="crypro-button" :class="type" @click="emit('click')">
+  <button
+    class="crypro-button"
+    :class="type"
+    @click.prevent="$emit('click', $event)"
+  >
     <slot></slot>
   </button>
 </template>
@@ -22,7 +26,7 @@ export default {
   font-size: 16px;
   font-weight: bold;
   text-align: center;
-  line-height: 3em;
+  line-height: 3;
 }
 
 .submit {

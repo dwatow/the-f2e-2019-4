@@ -1,8 +1,19 @@
 <template>
   <crypto-dialog class="crypto-edit-dialog">
-    <crypto-amount class="amount" :amount="amount"></crypto-amount>
-    <router-view>
-      <crypto-detail class="detail"></crypto-detail>
+    <crypto-amount class="amount" :eth="$store.getters.amount"></crypto-amount>
+    <router-view
+      :amount="$store.getters.amount"
+      :buyer="$store.getters.me"
+      :payment="$store.getters.payment"
+      @onChangeBuyer="$store.commit('me', $event)"
+      @onChangePayment="$store.commit('payment', $event)"
+    >
+      <crypto-shopping-cart
+        class="shopping-cart"
+        :detail="$store.getters.shoppingCart"
+        :gasFee="$store.getters.transactionFee"
+      >
+      </crypto-shopping-cart>
     </router-view>
   </crypto-dialog>
 </template>
@@ -10,21 +21,13 @@
 <script>
 import cryptoAmount from "@/components/crypto-amount.vue";
 import cryptoDialog from "@/components/crypto-dialog.vue";
-import cryptoDetail from "@/views/crypto-detail.vue";
+import cryptoShoppingCart from "@/components/crypto-shopping-cart.vue";
 
 export default {
   components: {
     cryptoAmount,
     cryptoDialog,
-    cryptoDetail
-  },
-  data() {
-    return {
-      amount: {
-        eth: 123,
-        usd: 456
-      }
-    };
+    cryptoShoppingCart
   }
 };
 </script>
@@ -33,15 +36,14 @@ export default {
 @import "@/assets/scss/crypto-base.scss";
 .crypto-edit-dialog {
   @include block_base;
-  // overflow: auto;
 }
 </style>
-  
+
 <style lang="scss" scoped>
 @import "@/assets/scss/crypto-base.scss";
 .crypto-edit-dialog {
   position: relative;
-  .detail {
+  .shopping-cart {
     margin: 24px 0;
     width: 100%;
     @include mediaquery_large {

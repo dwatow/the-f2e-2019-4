@@ -3,7 +3,7 @@
     <h2 class="title">
       detail
       <label class="right-item"
-        ><select v-model="currency_type">
+        ><select v-model="detail.currency_type">
           <option value="ETH">ETH</option>
           <option value="BTC">BTC</option>
         </select>
@@ -12,28 +12,34 @@
     </h2>
     <section class="store">
       <h3>store</h3>
-      <p>{{ store_name }}</p>
+      <p>{{ detail.store_name }}</p>
     </section>
     <section class="list">
       <h3>list</h3>
-      <p :key="one.id" v-for="one in productions">
+      <p :key="one.id" v-for="one in detail.productions">
         {{ one.name }} ({{ one.quantity }})
         <span class="right-item"
-          >{{ one.price * one.quantity }} {{ currency_type }}</span
+          >{{ one.price * one.quantity }} {{ detail.currency_type }}</span
         >
       </p>
     </section>
     <section class="summary">
       <p>
-        amount<span class="right-item">{{ amount }} {{ currency_type }}</span>
+        amount<span class="right-item"
+          >{{ amount }} {{ detail.currency_type }}</span
+        >
       </p>
       <p>
-        gas fee<span class="right-item">{{ gas_fee }} {{ currency_type }}</span>
+        gas fee<span class="right-item"
+          >{{ gasFee }} {{ detail.currency_type }}</span
+        >
       </p>
     </section>
     <section class="total">
       <h3>
-        total<span class="right-item">{{ total }} {{ currency_type }}</span>
+        total<span class="right-item"
+          >{{ total }} {{ detail.currency_type }}</span
+        >
       </h3>
     </section>
   </div>
@@ -41,30 +47,13 @@
 
 <script>
 export default {
-  data() {
-    return {
-      store_name: "Store Name Inc.",
-      currency_type: "ETH",
-      gas_fee: 0.00021,
-      productions: [
-        {
-          id: 0,
-          name: "First Product",
-          quantity: 3,
-          price: 0.134
-        },
-        {
-          id: 1,
-          name: "Second Product",
-          quantity: 1,
-          price: 0.033
-        }
-      ]
-    };
+  props: {
+    detail: Object,
+    gasFee: Number
   },
   computed: {
     amount() {
-      return this.productions
+      return this.detail.productions
         .reduce((result, item) => {
           result += item.price * item.quantity;
           return result;
@@ -72,7 +61,7 @@ export default {
         .toFixed(3);
     },
     total() {
-      return Number(this.amount) + Number(this.gas_fee);
+      return Number(this.amount) + Number(this.gasFee);
     }
   }
 };
@@ -103,10 +92,6 @@ select {
   font-size: 1em;
   text-transform: uppercase;
   font-weight: bold;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  -o-appearance: none;
-  -ms-appearance: none;
   appearance: none;
   vertical-align: middle;
   padding-right: 1em;

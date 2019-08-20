@@ -9,18 +9,15 @@ export default {
     desktop: Number
   },
   computed: {
-    columnSize () {
-      if (this.all && !this.desktop)
-        return `column-${this.all}`
+    columnSize() {
+      if (this.all && !this.desktop) return `column-${this.all}`;
       else if (this.all && this.desktop)
-        return `column-${this.all} column-desktop-${this.desktop}`
-      else
-        return ''
+        return `column-${this.all} column-desktop-${this.desktop}`;
+      else return "";
     }
   }
-}
+};
 </script>
-
 
 <style lang="scss">
 @import "@/assets/scss/mediaquery.scss";
@@ -45,7 +42,7 @@ export default {
     &-desktop-12 {
       width: 100%;
     }
-  
+
     &-desktop-6 {
       width: 50%;
     }
@@ -53,6 +50,5 @@ export default {
       margin-top: 0;
     }
   }
-
 }
 </style>

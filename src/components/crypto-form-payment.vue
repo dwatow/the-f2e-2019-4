@@ -1,6 +1,6 @@
 <template>
   <div class="crypto-edit-payment">
-    <h2>
+    <h2 @click="toCheckout">
       <i class="material-icons">arrow_back</i>
       <span>edit payment</span>
     </h2>
@@ -9,12 +9,18 @@
       <row>
         <column :all="12">
           <buttons-group class="pay_way">
-            <div>
+            <div
+              @click="changeAsset('ETH')"
+              :class="{ actived: payment.currency === 'ETH' }"
+            >
               <iconETH class="iconETH"></iconETH>
               <span class="name">Ethereum</span>
               <span>(ETH)</span>
             </div>
-            <div>
+            <div
+              @click="changeAsset('BTC')"
+              :class="{ actived: payment.currency === 'BTC' }"
+            >
               <iconBTC></iconBTC>
               <span class="name">Bitcoin</span>
               <span>(BTC)</span>
@@ -52,20 +58,15 @@
       <row>
         <column :all="12">
           <buttons-group class="pay_speed">
-            <div>
-              <span class="name">slow</span>
+            <div
+              :key="key"
+              v-for="(value, key) in transactionFee"
+              :class="{ actived: payment.speed === key }"
+              @click="changeTransactionFee(value, key)"
+            >
+              <span class="name">{{ key }}</span>
               <br />
-              <span class="content">0.00008 ETH</span>
-            </div>
-            <div>
-              <span class="name">average</span>
-              <br />
-              <span class="content">0.00021 ETH</span>
-            </div>
-            <div>
-              <span class="name">fast</span>
-              <br />
-              <span class="content">0.00042 ETH</span>
+              <span class="content">{{ value }} ETH</span>
             </div>
           </buttons-group>
         </column>
@@ -75,10 +76,12 @@
     <section>
       <row>
         <column :all="12" :desktop="6">
-          <crypto-button type="cancel">cancel</crypto-button>
+          <crypto-button type="cancel" @click="toCheckout"
+            >cancel</crypto-button
+          >
         </column>
         <column :all="12" :desktop="6">
-          <crypto-button type="submit">continue</crypto-button>
+          <crypto-button type="submit" @click="submit">continue</crypto-button>
         </column>
       </row>
     </section>
@@ -103,6 +106,38 @@ export default {
     iconQrcode,
     buttonsGroup,
     cryptoButton
+  },
+  props: {
+    payment: Object
+  },
+  data() {
+    return {
+      transactionFee: {
+        show: 0.00008,
+        average: 0.00021,
+        fast: 0.00042
+      }
+    };
+  },
+  methods: {
+    changeAsset(currency) {
+      const payment = Object.assign({}, this.payment, { currency });
+      this.$emit("onChangePayment", payment);
+    },
+    changeTransactionFee(transactionFee, speed) {
+      const payment = Object.assign({}, this.payment, {
+        speed,
+        transactionFee
+      });
+      this.$emit("onChangePayment", payment);
+    },
+    toCheckout() {
+      this.$router.push({ name: "crypto-checkout" });
+    },
+    submit() {
+      this.$store.dispatch("modifyPayment");
+      this.$router.push({ name: "crypto-checkout" });
+    }
   }
 };
 </script>
@@ -111,6 +146,7 @@ export default {
 @import "@/assets/scss/mediaquery.scss";
 
 h2 {
+  cursor: pointer;
   text-transform: uppercase;
   font-weight: bold;
   i,
@@ -159,14 +195,9 @@ section {
   }
 }
 
-.pay_way,
-.pay_speed {
-  div {
-    &:hover {
-      border: solid 1px white;
-      filter: invert(1);
-    }
-  }
+.actived {
+  border: solid 1px white;
+  filter: invert(1);
 }
 
 .pay_way {
