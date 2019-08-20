@@ -1,18 +1,19 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <!-- <router-link to="/crypto-pay">crypto pay</router-link> |
+    <router-link to="/form/crypto-login">crypto login</router-link> |
+    <router-link to="/form/crypto-checkout">crypto checkout</router-link> |
+    <router-link to="/form/crypto-buyer">crypto buyer</router-link> |
+    <router-link to="/form/crypto-payment">crypto payment</router-link> |
+    <router-link to="/crypto-result">crypto result</router-link> -->
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
 
 export default {
   name: 'app',
-  components: {
-    HelloWorld
-  }
 }
 </script>
 
