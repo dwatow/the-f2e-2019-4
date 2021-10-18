@@ -9,7 +9,7 @@
 
 - [設計稿](https://xd.adobe.com/spec/6ae6fdfb-94a3-4392-740e-657b52eaa4be-1cd7/)
 - [影片 part1](https://www.youtube.com/watch?v=vzLbLIiTCqI&t)
-- [影片 part2[(https://www.youtube.com/watch?v=VPn1kv-HZGU&t)
+- [影片 part2](https://www.youtube.com/watch?v=VPn1kv-HZGU&t)
 
 
 ## Project setup
